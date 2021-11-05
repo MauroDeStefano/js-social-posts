@@ -87,7 +87,7 @@ function createPost(object){
       <div class="post__footer">
         <div class="likes js-likes">
           <div class="likes__cta">
-            <a class="like-button  js-like-button" href="#" data-postid="${object[i].id}">
+            <a class="like-button  js-like-button" data-postid="${object[i].id}">
               <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                 <span class="like-button__label">Mi Piace</span></a>
               </div>
@@ -108,18 +108,22 @@ createPost(posts);
 
 for (let i in posts){
   console.log(posts);
+  
   const dataId = document.querySelector(`[data-postid="${posts[i].id}"]`);
-  let counter = document.querySelector(".likes__counter");
+  let counter = document.querySelectorAll(".likes__counter");
   
   console.log(dataId);
   dataId.addEventListener("click", function(){
+
+    
+
     if(!dataId.classList.contains("like-button--liked")){
     
     posts[i].likes += 1;
 
     dataId.classList.add("like-button--liked");
     
-    counter.innerHTML = `
+    counter[i].innerHTML = `
     <div class="likes__counter">
     Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
     </div>`
@@ -130,7 +134,6 @@ for (let i in posts){
   });
 }
   
-
 
 function reverseDate(dateToChange) {
   dateToChange = dateToChange.split("-").reverse().join("-");
