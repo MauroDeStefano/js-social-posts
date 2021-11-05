@@ -62,6 +62,11 @@ console.log(posts);
 
 function createPost(object){
   for (let i in object){
+
+    if(object[i].author.image === null){
+      object[i].author.image = "https://www.cdcvillamaria.it/wp-content/uploads/2016/09/default-user-image.png";
+    }
+
     container.innerHTML += `
     <div class="post">
       <div class="post__header">
@@ -103,13 +108,26 @@ createPost(posts);
 
 for (let i in posts){
   console.log(posts);
-  const prova = document.querySelector(`[data-postid="${posts[i].id}"]`);
-  console.log(prova);
-  prova.addEventListener("click", function(){
-    // const idByn = this.attr("data-id");
+  const dataId = document.querySelector(`[data-postid="${posts[i].id}"]`);
+  let counter = document.querySelector(".likes__counter");
+  
+  console.log(dataId);
+  dataId.addEventListener("click", function(){
+    if(!dataId.classList.contains("like-button--liked")){
+    
     posts[i].likes += 1;
-    prova.classList.add("like-button--liked");
-});
+
+    dataId.classList.add("like-button--liked");
+    
+    counter.innerHTML = `
+    <div class="likes__counter">
+    Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+    </div>`
+    ;
+
+    }
+    
+  });
 }
   
 
