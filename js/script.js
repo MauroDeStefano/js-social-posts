@@ -71,7 +71,7 @@ function createPost(object){
             </div>
           <div class="post-meta__data">
             <div class="post-meta__author">${object[i].author.name}</div>
-            <div class="post-meta__time">DA SOSTITUIRE CON FUNZIONE DATA</div>
+            <div class="post-meta__time">${reverseDate(object[i].created)}</div>
           </div>                    
         </div>
       </div>
@@ -82,18 +82,39 @@ function createPost(object){
       <div class="post__footer">
         <div class="likes js-likes">
           <div class="likes__cta">
-            <a class="like-button  js-like-button" href="#" data-postid="1">
+            <a class="like-button  js-like-button" href="#" data-postid="${object[i].id}">
               <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                 <span class="like-button__label">Mi Piace</span></a>
               </div>
             <div class="likes__counter">
-              Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+              Piace a <b id="like-counter-1" class="js-likes-counter">${object[i].likes}</b> persone
             </div>
         </div> 
       </div>      
-      `;
+    `;
+
+
   }
 
 }
 
 createPost(posts);
+
+
+for (let i in posts){
+  console.log(posts);
+  const prova = document.querySelector(`[data-postid="${posts[i].id}"]`);
+  console.log(prova);
+  prova.addEventListener("click", function(){
+    // const idByn = this.attr("data-id");
+    posts[i].likes += 1;
+    prova.classList.add("like-button--liked");
+});
+}
+  
+
+
+function reverseDate(dateToChange) {
+  dateToChange = dateToChange.split("-").reverse().join("-");
+  return dateToChange;
+}
